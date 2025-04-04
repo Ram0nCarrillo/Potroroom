@@ -10,11 +10,12 @@
             org.hibernate.dialect.MySQL8Dialect
         </property>
         <property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
-        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/classroom</property>
-        <property name="hibernate.connection.username">root</property>
-        <property name="hibernate.connection.password">jrcz2005</property>
-        <mapping class="mx.itson.classroom.entities"/>
-        <mapping class="mx.itson.zoo.classroom.persistence"/>
+        <property name="hibernate.connection.url">jdbc:mysql://72.29.120.28/siste214_251990?useSSL=false</property>
+        <property name="hibernate.connection.username">siste214_251990</property>
+        <property name="hibernate.connection.password">251990ITSON@guaymas</property>
+        <mapping class="mx.itson.potroroom.entities.Classes"/>
+        <mapping class="mx.itson.potroroom.entities.Assigment"/>
+        <mapping class="mx.itson.potroroom.entities.Student"/>
     </session-factory>
 </hibernate-configuration>
 
