@@ -19,7 +19,7 @@ public class Assigment {
     private String tittle;
     private String state;
     private String description;
-    private Date day_send;
+    private Date due_day;
     private Classes classes;
 
     public int getId() {
@@ -55,11 +55,11 @@ public class Assigment {
     }
 
     public Date getDay_send() {
-        return day_send;
+        return due_day;
     }
 
-    public void setDay_send(Date day_send) {
-        this.day_send = day_send;
+    public void setDay_send(Date due_day) {
+        this.due_day = due_day;
     }
 
     public Classes getClasses() {
