@@ -4,6 +4,11 @@
  */
 package com.itson.classroom.ui;
 
+import com.itson.classroom.entities.Classes;
+import com.itson.classroom.persistence.ClassesDAO;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author user
@@ -26,27 +31,17 @@ public class ClassesList extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tblAssigment = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblClasses = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        tblAssigment.setBackground(new java.awt.Color(0, 153, 153));
-        tblAssigment.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
-            },
-            new String [] {
-                "Name", "Student", "Assigment"
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
             }
-        ));
-        tblAssigment.setGridColor(new java.awt.Color(153, 255, 153));
-        tblAssigment.setSelectionBackground(new java.awt.Color(153, 255, 153));
-        jScrollPane1.setViewportView(tblAssigment);
+        });
 
         jButton1.setBackground(new java.awt.Color(0, 153, 153));
         jButton1.setText("Access");
@@ -56,6 +51,36 @@ public class ClassesList extends javax.swing.JFrame {
             }
         });
 
+        tblClasses.setBackground(new java.awt.Color(0, 153, 153));
+        tblClasses.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Id", "Name", "Student", "Assigment"
+            }
+        ));
+        tblClasses.setGridColor(new java.awt.Color(153, 255, 153));
+        tblClasses.setSelectionBackground(new java.awt.Color(153, 255, 153));
+        jScrollPane1.setViewportView(tblClasses);
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 571, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -63,18 +88,18 @@ public class ClassesList extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 540, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(254, 254, 254)
-                        .addComponent(jButton1)))
-                .addContainerGap(104, Short.MAX_VALUE))
+                        .addComponent(jButton1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
                 .addComponent(jButton1)
                 .addGap(24, 24, 24))
@@ -87,6 +112,28 @@ public class ClassesList extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        // TODO add your handling code here:
+        loadTableClasses();
+        tblClasses.removeColumn(tblClasses.getColumnModel().getColumn(0));
+    }//GEN-LAST:event_formWindowOpened
+
+    
+    private void loadTableClasses() {
+    List<Classes> classes = ClassesDAO.getAll();
+    DefaultTableModel tableModel = (DefaultTableModel) tblClasses.getModel();
+    tableModel.setRowCount(0);
+    for (Classes c : classes) {
+        tableModel.addRow(new Object[]{
+            c.getId(),
+            c.getName(),
+            c.getStudent(),
+            c.getAssigment()
+        });
+    }
+}
+    
+    
     /**
      * @param args the command line arguments
      */
@@ -124,7 +171,8 @@ public class ClassesList extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tblAssigment;
+    private javax.swing.JTable tblClasses;
     // End of variables declaration//GEN-END:variables
 }

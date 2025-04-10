@@ -4,6 +4,11 @@
  */
 package com.itson.classroom.ui;
 
+import com.itson.classroom.entities.Work;
+import com.itson.classroom.persistence.WorkDAO;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author user
@@ -27,13 +32,18 @@ public class WorkList extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblAssigment = new javax.swing.JTable();
+        tblWork = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
-        tblAssigment.setBackground(new java.awt.Color(255, 153, 51));
-        tblAssigment.setModel(new javax.swing.table.DefaultTableModel(
+        tblWork.setBackground(new java.awt.Color(255, 153, 51));
+        tblWork.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -44,12 +54,12 @@ public class WorkList extends javax.swing.JFrame {
                 "Id", "Date", "Name", "Student", "Assigment"
             }
         ));
-        tblAssigment.setGridColor(new java.awt.Color(153, 255, 153));
-        tblAssigment.setSelectionBackground(new java.awt.Color(153, 255, 153));
-        jScrollPane1.setViewportView(tblAssigment);
-        if (tblAssigment.getColumnModel().getColumnCount() > 0) {
-            tblAssigment.getColumnModel().getColumn(3).setHeaderValue("Student");
-            tblAssigment.getColumnModel().getColumn(4).setHeaderValue("Assigment");
+        tblWork.setGridColor(new java.awt.Color(153, 255, 153));
+        tblWork.setSelectionBackground(new java.awt.Color(153, 255, 153));
+        jScrollPane1.setViewportView(tblWork);
+        if (tblWork.getColumnModel().getColumnCount() > 0) {
+            tblWork.getColumnModel().getColumn(3).setHeaderValue("Student");
+            tblWork.getColumnModel().getColumn(4).setHeaderValue("Assigment");
         }
 
         jButton1.setBackground(new java.awt.Color(255, 204, 51));
@@ -91,6 +101,28 @@ public class WorkList extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        // TODO add your handling code here:}
+        loadTableWork();
+        tblWork.removeColumn(tblWork.getColumnModel().getColumn(0));
+    }//GEN-LAST:event_formWindowOpened
+
+    
+    private void loadTableWork() {
+    List<Work> work = WorkDAO.getAll();
+    DefaultTableModel tableModel = (DefaultTableModel) tblWork.getModel();
+    tableModel.setRowCount(0);
+    for (Work w : work) {
+        tableModel.addRow(new Object[]{
+            w.getId(),
+            w.getDate(),
+            w.getName(),
+            w.getStudent(),
+            w.getAssigment()
+        });
+    }
+}
+    
     /**
      * @param args the command line arguments
      */
@@ -129,6 +161,6 @@ public class WorkList extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tblAssigment;
+    private javax.swing.JTable tblWork;
     // End of variables declaration//GEN-END:variables
 }

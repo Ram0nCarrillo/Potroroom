@@ -4,6 +4,11 @@
  */
 package com.itson.classroom.ui;
 
+import com.itson.classroom.entities.Student;
+import com.itson.classroom.persistence.StudentDAO;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author user
@@ -27,13 +32,18 @@ public class StudentList extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblAssigment = new javax.swing.JTable();
+        tblStudent = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
-        tblAssigment.setBackground(new java.awt.Color(255, 153, 153));
-        tblAssigment.setModel(new javax.swing.table.DefaultTableModel(
+        tblStudent.setBackground(new java.awt.Color(255, 153, 153));
+        tblStudent.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null},
@@ -44,9 +54,9 @@ public class StudentList extends javax.swing.JFrame {
                 "Id", "Name", "Classes", "Assigned_act", "Assigment", "Grade", "Email"
             }
         ));
-        tblAssigment.setGridColor(new java.awt.Color(153, 255, 153));
-        tblAssigment.setSelectionBackground(new java.awt.Color(153, 255, 153));
-        jScrollPane1.setViewportView(tblAssigment);
+        tblStudent.setGridColor(new java.awt.Color(153, 255, 153));
+        tblStudent.setSelectionBackground(new java.awt.Color(153, 255, 153));
+        jScrollPane1.setViewportView(tblStudent);
 
         jButton1.setBackground(new java.awt.Color(255, 153, 153));
         jButton1.setText("Deliveries");
@@ -78,6 +88,30 @@ public class StudentList extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        // TODO add your handling code here
+        loadTableStudents();
+        tblStudent.removeColumn(tblStudent.getColumnModel().getColumn(0));
+        
+    }//GEN-LAST:event_formWindowOpened
+
+    private void loadTableStudents() {
+    List<Student> students = StudentDAO.getAll();
+    DefaultTableModel tableModel = (DefaultTableModel) tblStudent.getModel();
+    tableModel.setRowCount(0);
+    for (Student s : students) {
+        tableModel.addRow(new Object[]{
+            s.getId(),
+            s.getName(),
+            s.getClasses(),
+            s.getAssigned_act(),
+            s.getAsigment(),
+            s.getGrade(),
+            s.getEmail()
+        });
+    }
+}
+    
     /**
      * @param args the command line arguments
      */
@@ -116,6 +150,6 @@ public class StudentList extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tblAssigment;
+    private javax.swing.JTable tblStudent;
     // End of variables declaration//GEN-END:variables
 }

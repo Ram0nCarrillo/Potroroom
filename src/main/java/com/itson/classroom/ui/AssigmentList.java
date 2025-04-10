@@ -4,6 +4,11 @@
  */
 package com.itson.classroom.ui;
 
+import com.itson.classroom.entities.Assigment;
+import com.itson.classroom.persistence.AssigmentDAO;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author zBook
@@ -46,7 +51,7 @@ public class AssigmentList extends javax.swing.JFrame {
                 {null, null, null, null, null, null}
             },
             new String [] {
-                "Id", "Tittle", "State", "Description", "Due Day", "Classes"
+                "Id", "Tittle", "Description", "Due Day", "State", "Classes"
             }
         ));
         tblAssigment.setGridColor(new java.awt.Color(153, 255, 153));
@@ -62,21 +67,21 @@ public class AssigmentList extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 397, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 608, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton1)
-                .addGap(158, 158, 158))
+                .addGap(38, 38, 38))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(33, 33, 33)
+                .addGap(32, 32, 32)
                 .addComponent(jButton1)
-                .addContainerGap(39, Short.MAX_VALUE))
+                .addContainerGap(40, Short.MAX_VALUE))
         );
 
         pack();
@@ -84,8 +89,27 @@ public class AssigmentList extends javax.swing.JFrame {
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
+        loadTableAssigments();
+        tblAssigment.removeColumn(tblAssigment.getColumnModel().getColumn(0));
+
     }//GEN-LAST:event_formWindowOpened
 
+    private void loadTableAssigments() {
+    List<Assigment> assigments = AssigmentDAO.getAll();
+    DefaultTableModel tableModel = (DefaultTableModel) tblAssigment.getModel();
+    tableModel.setRowCount(0);
+    for (Assigment a : assigments) {
+        tableModel.addRow(new Object[]{
+            a.getId(),
+            a.getTittle(),
+            a.getDescription(),
+            a.getDay_send(),
+            a.getState(),
+            a.getClasses()
+        });
+    }
+}
+    
     /**
      * @param args the command line arguments
      */
