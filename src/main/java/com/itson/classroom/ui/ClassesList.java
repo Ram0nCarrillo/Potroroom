@@ -1,8 +1,5 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package com.itson.classroom.ui;
+
 
 import com.itson.classroom.entities.Classes;
 import com.itson.classroom.persistence.ClassesDAO;
@@ -143,9 +140,13 @@ public class ClassesList extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        // TODO add your handling code here:
-        loadTableClasses();
-        tblClasses.removeColumn(tblClasses.getColumnModel().getColumn(0));
+       try {
+    loadTableClasses();
+    tblClasses.removeColumn(tblClasses.getColumnModel().getColumn(0));
+} catch (Exception ex) {
+    ex.printStackTrace();
+    JOptionPane.showMessageDialog(this, "Error al cargar los datos: " + ex.getMessage());
+}
     }//GEN-LAST:event_formWindowOpened
 
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
@@ -201,7 +202,7 @@ public class ClassesList extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public void main(String args[]) { // quite el static de aqui, es por mientras
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
