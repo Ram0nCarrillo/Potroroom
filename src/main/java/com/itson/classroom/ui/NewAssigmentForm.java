@@ -4,6 +4,12 @@
  */
 package com.itson.classroom.ui;
 
+import com.itson.classroom.entities.Assigment;
+import com.itson.classroom.persistence.AssigmentDAO;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author darkheaven
@@ -33,28 +39,39 @@ public class NewAssigmentForm extends javax.swing.JDialog {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         txtTittle = new javax.swing.JTextField();
-        txtDueDate = new javax.swing.JTextField();
+        txtDue_Date = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         btnAccept = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtDescription = new javax.swing.JTextArea();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jLabel1.setText("Titulo:");
+        jLabel1.setText("Tittle:");
 
-        jLabel2.setText("Descripción:");
+        jLabel2.setText("Description:");
 
-        jLabel5.setText("Fecha de entrega:");
+        jLabel5.setText("Delivery date:");
 
-        txtDueDate.setText("yyyy - mm - dd");
-        txtDueDate.addFocusListener(new java.awt.event.FocusAdapter() {
+        txtDue_Date.setText("yyyy - mm - dd");
+        txtDue_Date.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                txtDueDateFocusGained(evt);
+                txtDue_DateFocusGained(evt);
+            }
+        });
+        txtDue_Date.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtDue_DateActionPerformed(evt);
             }
         });
 
-        btnAccept.setText("Aceptar");
+        btnAccept.setText("Create");
+        btnAccept.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAcceptActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -87,7 +104,7 @@ public class NewAssigmentForm extends javax.swing.JDialog {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtDueDate, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtDue_Date, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5)
                     .addComponent(jLabel2)
                     .addComponent(jLabel1)
@@ -118,25 +135,33 @@ public class NewAssigmentForm extends javax.swing.JDialog {
                 .addGap(18, 18, 18)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtDueDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+                .addComponent(txtDue_Date, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(19, 19, 19))
         );
+
+        jLabel3.setText("Create Assigment");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(15, 15, 15)
+                .addContainerGap(15, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(180, 180, 180)
+                .addComponent(jLabel3)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(14, 14, 14)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(17, 17, 17)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -144,10 +169,41 @@ public class NewAssigmentForm extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtDueDateFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDueDateFocusGained
+    private void txtDue_DateFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDue_DateFocusGained
         // TODO add your handling code here:
-        txtDueDate.setText("");
-    }//GEN-LAST:event_txtDueDateFocusGained
+        txtDue_Date.setText("");
+    }//GEN-LAST:event_txtDue_DateFocusGained
+
+    private void btnAcceptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAcceptActionPerformed
+       String tittle = txtTittle.getText();
+       String description = txtDescription.getText();
+       String dateText = txtDue_Date.getText();
+
+       try {
+           SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+           sdf.setLenient(false);
+           Date due_Date = sdf.parse(dateText);
+
+           Assigment a = new Assigment();
+           a.setTittle(tittle);
+           a.setDescription(description);
+           a.setDue_date(due_Date);
+
+           if (AssigmentDAO.save(a)) {
+               JOptionPane.showMessageDialog(this, "El registro se guardó correctamente");
+               this.dispose(); // Cierra el JDialog si querés
+           } else {
+               JOptionPane.showMessageDialog(this, "Error al guardar el registro");
+           }
+
+       } catch (Exception e) {
+           JOptionPane.showMessageDialog(this, "Fecha inválida. Usa el formato dd/MM/yyyy");
+       }
+    }//GEN-LAST:event_btnAcceptActionPerformed
+
+    private void txtDue_DateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDue_DateActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtDue_DateActionPerformed
 
     /**
      * @param args the command line arguments
@@ -195,13 +251,14 @@ public class NewAssigmentForm extends javax.swing.JDialog {
     private javax.swing.JButton btnAccept;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea txtDescription;
-    private javax.swing.JTextField txtDueDate;
+    private javax.swing.JTextField txtDue_Date;
     private javax.swing.JTextField txtTittle;
     // End of variables declaration//GEN-END:variables
 }

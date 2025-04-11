@@ -11,7 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class Assignment {
+public class Assigment {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

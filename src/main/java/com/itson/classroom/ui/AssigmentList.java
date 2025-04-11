@@ -4,8 +4,9 @@
  */
 package com.itson.classroom.ui;
 
-import com.itson.classroom.entities.Assignment;
-import com.itson.classroom.persistence.AssignmentDAO;
+import com.itson.classroom.entities.Assigment;
+import com.itson.classroom.persistence.AssigmentDAO;
+import com.itson.classroom.ui.NewAssigmentForm;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
@@ -33,7 +34,9 @@ public class AssigmentList extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         tblAssigment = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
+        btnCreate = new javax.swing.JButton();
+        btnEdit = new javax.swing.JButton();
+        btnDelete = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -58,8 +61,29 @@ public class AssigmentList extends javax.swing.JFrame {
         tblAssigment.setSelectionBackground(new java.awt.Color(153, 255, 153));
         jScrollPane1.setViewportView(tblAssigment);
 
-        jButton1.setBackground(new java.awt.Color(153, 255, 102));
-        jButton1.setText("Check");
+        btnCreate.setBackground(new java.awt.Color(153, 255, 102));
+        btnCreate.setText("Create");
+        btnCreate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCreateActionPerformed(evt);
+            }
+        });
+
+        btnEdit.setBackground(new java.awt.Color(153, 255, 102));
+        btnEdit.setText("Edit");
+        btnEdit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditActionPerformed(evt);
+            }
+        });
+
+        btnDelete.setBackground(new java.awt.Color(153, 255, 102));
+        btnDelete.setText("Check");
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -67,21 +91,29 @@ public class AssigmentList extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 608, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 608, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnDelete)
+                        .addGap(50, 50, 50)
+                        .addComponent(btnEdit)
+                        .addGap(62, 62, 62)
+                        .addComponent(btnCreate)
+                        .addGap(123, 123, 123)))
                 .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addGap(38, 38, 38))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(32, 32, 32)
-                .addComponent(jButton1)
-                .addContainerGap(40, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnCreate)
+                    .addComponent(btnEdit)
+                    .addComponent(btnDelete))
+                .addContainerGap(54, Short.MAX_VALUE))
         );
 
         pack();
@@ -94,11 +126,27 @@ public class AssigmentList extends javax.swing.JFrame {
 
     }//GEN-LAST:event_formWindowOpened
 
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        
+    }//GEN-LAST:event_btnDeleteActionPerformed
+
+    private void btnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateActionPerformed
+        NewAssigmentForm form = new NewAssigmentForm(this, true);
+        form.setVisible(true);
+        
+        loadTableAssigments();
+    }
+    }//GEN-LAST:event_btnCreateActionPerformed
+
+    private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
+        
+    }//GEN-LAST:event_btnEditActionPerformed
+
     private void loadTableAssigments() {
-    List<Assignment> assigments = AssignmentDAO.getAll();
+    List<Assigment> assigments = AssigmentDAO.getAll();
     DefaultTableModel tableModel = (DefaultTableModel) tblAssigment.getModel();
     tableModel.setRowCount(0);
-    for (Assignment a : assigments) {
+    for (Assigment a : assigments) {
         tableModel.addRow(new Object[]{
             a.getId(),
             a.getTittle(),
@@ -144,8 +192,10 @@ public class AssigmentList extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnCreate;
+    private javax.swing.JButton btnDelete;
+    private javax.swing.JButton btnEdit;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblAssigment;
     // End of variables declaration//GEN-END:variables
-}
+

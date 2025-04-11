@@ -33,6 +33,23 @@ public class StudentDAO {
         return students;
     }
     
+    public static boolean save(Student s){
+        boolean resultado = false;
+        try{
+            Session session = HibernateUtil.getSessionFactory().openSession();
+            session.beginTransaction();
+            
+            session.save(s);
+            session.getTransaction().commit();
+            
+            resultado = s.getId() !=0;
+            
+        } catch (Exception ex){
+            System.out.println("Ocurrio un error: " + ex.getMessage());
+        }
+        return resultado;
+    }
+    
     public static boolean delete(Student s){
         boolean resultado = false;
         try{

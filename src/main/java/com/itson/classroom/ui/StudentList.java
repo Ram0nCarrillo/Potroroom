@@ -33,7 +33,9 @@ public class StudentList extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         tblStudent = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
+        btnCreate = new javax.swing.JButton();
+        btnUpdate = new javax.swing.JButton();
+        btnDelete = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -58,8 +60,19 @@ public class StudentList extends javax.swing.JFrame {
         tblStudent.setSelectionBackground(new java.awt.Color(153, 255, 153));
         jScrollPane1.setViewportView(tblStudent);
 
-        jButton1.setBackground(new java.awt.Color(255, 153, 153));
-        jButton1.setText("Deliveries");
+        btnCreate.setBackground(new java.awt.Color(255, 153, 153));
+        btnCreate.setText("Create");
+        btnCreate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCreateActionPerformed(evt);
+            }
+        });
+
+        btnUpdate.setBackground(new java.awt.Color(255, 153, 153));
+        btnUpdate.setText("Deliveries");
+
+        btnDelete.setBackground(new java.awt.Color(255, 153, 153));
+        btnDelete.setText("Deliveries");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -71,8 +84,12 @@ public class StudentList extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 639, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(273, 273, 273)
-                        .addComponent(jButton1)))
+                        .addGap(112, 112, 112)
+                        .addComponent(btnDelete)
+                        .addGap(64, 64, 64)
+                        .addComponent(btnUpdate)
+                        .addGap(55, 55, 55)
+                        .addComponent(btnCreate)))
                 .addContainerGap(26, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -81,7 +98,10 @@ public class StudentList extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnUpdate)
+                    .addComponent(btnCreate)
+                    .addComponent(btnDelete))
                 .addGap(34, 34, 34))
         );
 
@@ -94,6 +114,13 @@ public class StudentList extends javax.swing.JFrame {
         tblStudent.removeColumn(tblStudent.getColumnModel().getColumn(0));
         
     }//GEN-LAST:event_formWindowOpened
+
+    private void btnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateActionPerformed
+        NewStudentForm NewForm = new NewStudentForm(this,true);
+        NewForm.setVisible(true);
+        
+        loadTableStudents();
+    }//GEN-LAST:event_btnCreateActionPerformed
 
     private void loadTableStudents() {
     List<Student> students = StudentDAO.getAll();
@@ -144,7 +171,9 @@ public class StudentList extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnCreate;
+    private javax.swing.JButton btnDelete;
+    private javax.swing.JButton btnUpdate;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblStudent;
     // End of variables declaration//GEN-END:variables

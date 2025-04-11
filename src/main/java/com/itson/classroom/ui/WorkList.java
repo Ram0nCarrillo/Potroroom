@@ -33,7 +33,7 @@ public class WorkList extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         tblWork = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
+        btnDelete = new javax.swing.JButton();
         btnAdd = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -59,11 +59,11 @@ public class WorkList extends javax.swing.JFrame {
         tblWork.setSelectionBackground(new java.awt.Color(153, 255, 153));
         jScrollPane1.setViewportView(tblWork);
 
-        jButton1.setBackground(new java.awt.Color(255, 204, 51));
-        jButton1.setText("Students");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnDelete.setBackground(new java.awt.Color(255, 204, 51));
+        btnDelete.setText("Students");
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnDeleteActionPerformed(evt);
             }
         });
 
@@ -84,7 +84,7 @@ public class WorkList extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnAdd)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1))
+                        .addComponent(btnDelete))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 550, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(94, Short.MAX_VALUE))
         );
@@ -95,7 +95,7 @@ public class WorkList extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
+                    .addComponent(btnDelete)
                     .addComponent(btnAdd))
                 .addContainerGap(33, Short.MAX_VALUE))
         );
@@ -103,9 +103,9 @@ public class WorkList extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:}
@@ -114,8 +114,6 @@ public class WorkList extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowOpened
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-        // TODO add your handling code here:
-        
         NewWorkForm classForm = new NewWorkForm(this,true);
         classForm.setVisible(true);
         
@@ -175,7 +173,7 @@ public class WorkList extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnDelete;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblWork;
     // End of variables declaration//GEN-END:variables

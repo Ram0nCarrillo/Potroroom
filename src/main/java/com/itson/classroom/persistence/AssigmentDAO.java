@@ -4,7 +4,7 @@
  */
 package com.itson.classroom.persistence;
 
-import com.itson.classroom.entities.Assignment;
+import com.itson.classroom.entities.Assigment;
 import com.itson.classroom.utils.HibernateUtil;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,16 +15,16 @@ import org.hibernate.Session;
  *
  * @author ramon
  */
-public class AssignmentDAO {
+public class AssigmentDAO {
     
-    public static List<Assignment> getAll(){
-        List<Assignment> assigments = new ArrayList<>();
+    public static List<Assigment> getAll(){
+        List<Assigment> assigments = new ArrayList<>();
         try {
             Session session = HibernateUtil.getSessionFactory().openSession();
             
-            CriteriaQuery<Assignment> criteriaQuery = 
-                    session.getCriteriaBuilder().createQuery(Assignment.class);
-            criteriaQuery.from(Assignment.class);
+            CriteriaQuery<Assigment> criteriaQuery = 
+                    session.getCriteriaBuilder().createQuery(Assigment.class);
+            criteriaQuery.from(Assigment.class);
             
             assigments = session.createQuery(criteriaQuery).getResultList();
         } catch(Exception ex){
@@ -33,7 +33,20 @@ public class AssignmentDAO {
         return assigments;
     }
     
-    public static boolean save(Assignment a){
+    public static Assigment getById(int id) {
+        Assigment assignment = null;
+        try {
+            Session session = HibernateUtil.getSessionFactory().openSession();
+            assignment = session.get(Assigment.class, id); // ← Hibernate busca por ID
+            session.close();
+        } catch (Exception ex) {
+            System.out.println("Error al obtener el Assigment: " + ex.getMessage());
+        }
+        return assignment;
+    }
+
+    
+    public static boolean save(Assigment a){
         boolean resultado = false;
         try{
             Session session = HibernateUtil.getSessionFactory().openSession();
@@ -50,7 +63,7 @@ public class AssignmentDAO {
         return resultado;
     }
     
-    public static boolean update(Assignment a){
+    public static boolean update(Assigment a){
         boolean resultado = false;
         try{
             Session session = HibernateUtil.getSessionFactory().openSession();
@@ -67,7 +80,7 @@ public class AssignmentDAO {
         return resultado;
     }
     
-    public static boolean delete(Assignment a){
+    public static boolean delete(Assigment a){
         boolean resultado = false;
         try{
             Session session = HibernateUtil.getSessionFactory().openSession();

@@ -78,14 +78,14 @@ public class Work {
     /**
      * @return the id_assignment
      */
-    public Assignment getId_assignment() {
+    public Assigment getId_assignment() {
         return id_assignment;
     }
 
     /**
      * @param id_assignment the id_assignment to set
      */
-    public void setId_assignment(Assignment id_assignment) {
+    public void setId_assignment(Assigment id_assignment) {
         this.id_assignment = id_assignment;
     }
     @Id
@@ -98,7 +98,7 @@ public class Work {
     private Student id_student;
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="id_assignment")
-    private Assignment id_assignment;
+    private Assigment id_assignment;
 
    
 }
