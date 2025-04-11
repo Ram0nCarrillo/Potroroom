@@ -20,13 +20,6 @@ public class Assigment {
     private String description;
     private Date due_date;
     
-    public Assigment(String tittle, String description, Date due_date) {
-        this.title = tittle;
-        this.description = description;
-        this.due_date = due_date;
-    }
-    
-    
     public int getId() {
         return id;
     }

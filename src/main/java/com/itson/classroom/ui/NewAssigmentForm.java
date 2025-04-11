@@ -27,15 +27,6 @@ public class NewAssigmentForm extends javax.swing.JDialog {
     public NewAssigmentForm(java.awt.Frame parent, boolean modal, int id) {
         super(parent, modal);
         initComponents();
-        this.id = assigment.getId();
-        
-        
-
-        txtTittle.setText(assigment.getTittle());
-        txtDescription.setText(assigment.getDescription());
-
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        txtDue_Date.setText(sdf.format(assigment.getDue_date()));
     }
 
 
@@ -199,16 +190,18 @@ public class NewAssigmentForm extends javax.swing.JDialog {
         String description = txtDescription.getText();
         String dateText = txtDue_Date.getText();
 
+        Assigment a = new Assigment();
+        
         try {
-            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
             sdf.setLenient(false);
             Date due_Date = sdf.parse(dateText);
 
-            assigment.setTittle(tittle);
-            assigment.setDescription(description);
-            assigment.setDue_date(due_Date);
+            a.setTittle(tittle);
+            a.setDescription(description);
+            a.setDue_date(due_Date);
 
-            if (AssigmentDAO.update(assigment)) {
+            if (AssigmentDAO.save(a)) {
                 JOptionPane.showMessageDialog(this, "Actividad actualizada correctamente");
                 this.dispose();
             } else {
