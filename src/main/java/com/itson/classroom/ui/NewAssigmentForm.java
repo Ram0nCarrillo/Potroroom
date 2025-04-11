@@ -4,6 +4,7 @@
  */
 package com.itson.classroom.ui;
 
+
 import com.itson.classroom.entities.Assigment;
 import com.itson.classroom.persistence.AssigmentDAO;
 import java.text.SimpleDateFormat;
@@ -12,17 +13,31 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author darkheaven
+ * @author ramon
  */
 public class NewAssigmentForm extends javax.swing.JDialog {
 
+    private Assigment assigment;
+    private int id;
+    
+    
     /**
      * Creates new form NewAssigmentForm
      */
-    public NewAssigmentForm(java.awt.Frame parent, boolean modal) {
+    public NewAssigmentForm(java.awt.Frame parent, boolean modal, int id) {
         super(parent, modal);
         initComponents();
+        this.id = assigment.getId();
+        
+        
+
+        txtTittle.setText(assigment.getTittle());
+        txtDescription.setText(assigment.getDescription());
+
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        txtDue_Date.setText(sdf.format(assigment.getDue_date()));
     }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -136,7 +151,7 @@ public class NewAssigmentForm extends javax.swing.JDialog {
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtDue_Date, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(19, 19, 19))
         );
@@ -148,22 +163,23 @@ public class NewAssigmentForm extends javax.swing.JDialog {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(15, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGap(180, 180, 180)
-                .addComponent(jLabel3)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(166, 166, 166)
+                        .addComponent(jLabel3)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(17, 17, 17)
+                .addGap(39, 39, 39)
                 .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(17, 17, 17))
         );
 
         pack();
@@ -174,36 +190,34 @@ public class NewAssigmentForm extends javax.swing.JDialog {
         txtDue_Date.setText("");
     }//GEN-LAST:event_txtDue_DateFocusGained
 
-    private void btnAcceptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAcceptActionPerformed
-       String tittle = txtTittle.getText();
-       String description = txtDescription.getText();
-       String dateText = txtDue_Date.getText();
-
-       try {
-           SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-           sdf.setLenient(false);
-           Date due_Date = sdf.parse(dateText);
-
-           Assigment a = new Assigment();
-           a.setTittle(tittle);
-           a.setDescription(description);
-           a.setDue_date(due_Date);
-
-           if (AssigmentDAO.save(a)) {
-               JOptionPane.showMessageDialog(this, "El registro se guardó correctamente");
-               this.dispose(); // Cierra el JDialog si querés
-           } else {
-               JOptionPane.showMessageDialog(this, "Error al guardar el registro");
-           }
-
-       } catch (Exception e) {
-           JOptionPane.showMessageDialog(this, "Fecha inválida. Usa el formato dd/MM/yyyy");
-       }
-    }//GEN-LAST:event_btnAcceptActionPerformed
-
     private void txtDue_DateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDue_DateActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtDue_DateActionPerformed
+
+    private void btnAcceptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAcceptActionPerformed
+        String tittle = txtTittle.getText();
+        String description = txtDescription.getText();
+        String dateText = txtDue_Date.getText();
+
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            sdf.setLenient(false);
+            Date due_Date = sdf.parse(dateText);
+
+            assigment.setTittle(tittle);
+            assigment.setDescription(description);
+            assigment.setDue_date(due_Date);
+
+            if (AssigmentDAO.update(assigment)) {
+                JOptionPane.showMessageDialog(this, "Actividad actualizada correctamente");
+                this.dispose();
+            } else {
+                JOptionPane.showMessageDialog(this, "Error al actualizar la actividad");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Fecha inválida. Usa el formato dd/MM/yyyy");
+        }
+    }//GEN-LAST:event_btnAcceptActionPerformed
 
     /**
      * @param args the command line arguments
@@ -235,7 +249,7 @@ public class NewAssigmentForm extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                NewAssigmentForm dialog = new NewAssigmentForm(new javax.swing.JFrame(), true);
+                NewAssigmentForm dialog = new NewAssigmentForm(new javax.swing.JFrame(), true, 0);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

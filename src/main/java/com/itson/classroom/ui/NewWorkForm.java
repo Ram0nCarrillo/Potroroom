@@ -4,6 +4,7 @@
  */
 package com.itson.classroom.ui;
 
+import com.itson.classroom.entities.Student;
 import com.itson.classroom.entities.Work;
 import com.itson.classroom.persistence.WorkDAO;
 import javax.swing.JOptionPane;
@@ -17,7 +18,7 @@ public class NewWorkForm extends javax.swing.JDialog {
     /**
      * Creates new form NewWorkForm
      */
-    public NewWorkForm(java.awt.Frame parent, boolean modal) {
+    public NewWorkForm(java.awt.Frame parent, boolean modal, int idAssigment) {
         super(parent, modal);
         initComponents();
     }
@@ -38,7 +39,7 @@ public class NewWorkForm extends javax.swing.JDialog {
         jLabel3 = new javax.swing.JLabel();
         txtStudent = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        txtAssignment = new javax.swing.JTextField();
+        txtAssigment = new javax.swing.JTextField();
         btnOk = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -63,9 +64,9 @@ public class NewWorkForm extends javax.swing.JDialog {
 
         jLabel4.setText("Assignment");
 
-        txtAssignment.addActionListener(new java.awt.event.ActionListener() {
+        txtAssigment.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtAssignmentActionPerformed(evt);
+                txtAssigmentActionPerformed(evt);
             }
         });
 
@@ -90,7 +91,7 @@ public class NewWorkForm extends javax.swing.JDialog {
                     .addComponent(txtDate, javax.swing.GroupLayout.DEFAULT_SIZE, 261, Short.MAX_VALUE)
                     .addComponent(txtName)
                     .addComponent(txtStudent)
-                    .addComponent(txtAssignment))
+                    .addComponent(txtAssigment))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(305, Short.MAX_VALUE)
@@ -115,7 +116,7 @@ public class NewWorkForm extends javax.swing.JDialog {
                 .addGap(18, 18, 18)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtAssignment, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtAssigment, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnOk)
                 .addContainerGap(13, Short.MAX_VALUE))
@@ -124,9 +125,9 @@ public class NewWorkForm extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtAssignmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAssignmentActionPerformed
+    private void txtAssigmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAssigmentActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtAssignmentActionPerformed
+    }//GEN-LAST:event_txtAssigmentActionPerformed
 
     private void txtStudentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtStudentActionPerformed
         // TODO add your handling code here:
@@ -142,8 +143,8 @@ public class NewWorkForm extends javax.swing.JDialog {
         try{
         String name = txtName.getText();
         String date = txtDate.getText();
-        //Student student = Student.txtStudent.getText();
-        //String assignment = txtStudent.getText();
+        String student = txtStudent.getText();
+        String assignment = txtAssigment.getText();
         
         Work w = new Work();
         
@@ -189,7 +190,7 @@ public class NewWorkForm extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                NewWorkForm dialog = new NewWorkForm(new javax.swing.JFrame(), true);
+                NewWorkForm dialog = new NewWorkForm(new javax.swing.JFrame(), true, 0);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -207,7 +208,7 @@ public class NewWorkForm extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JTextField txtAssignment;
+    private javax.swing.JTextField txtAssigment;
     private javax.swing.JTextField txtDate;
     private javax.swing.JTextField txtName;
     private javax.swing.JTextField txtStudent;

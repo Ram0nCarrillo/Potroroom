@@ -33,6 +33,18 @@ public class StudentDAO {
         return students;
     }
     
+    public static Student getById(int id) {
+        Student student = null;
+        try {
+            Session session = HibernateUtil.getSessionFactory().openSession();
+            student = session.get(Student.class, id); // ← Hibernate busca por ID
+            session.close();
+        } catch (Exception ex) {
+            System.out.println("Error al obtener el Assigment: " + ex.getMessage());
+        }
+        return student;
+    }
+    
     public static boolean save(Student s){
         boolean resultado = false;
         try{

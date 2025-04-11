@@ -7,6 +7,7 @@ package com.itson.classroom.ui;
 import com.itson.classroom.entities.Student;
 import com.itson.classroom.persistence.StudentDAO;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -34,7 +35,6 @@ public class StudentList extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblStudent = new javax.swing.JTable();
         btnCreate = new javax.swing.JButton();
-        btnUpdate = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -68,11 +68,13 @@ public class StudentList extends javax.swing.JFrame {
             }
         });
 
-        btnUpdate.setBackground(new java.awt.Color(255, 153, 153));
-        btnUpdate.setText("Deliveries");
-
         btnDelete.setBackground(new java.awt.Color(255, 153, 153));
-        btnDelete.setText("Deliveries");
+        btnDelete.setText("Delete");
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -84,11 +86,9 @@ public class StudentList extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 639, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(112, 112, 112)
+                        .addGap(151, 151, 151)
                         .addComponent(btnDelete)
-                        .addGap(64, 64, 64)
-                        .addComponent(btnUpdate)
-                        .addGap(55, 55, 55)
+                        .addGap(191, 191, 191)
                         .addComponent(btnCreate)))
                 .addContainerGap(26, Short.MAX_VALUE))
         );
@@ -99,7 +99,6 @@ public class StudentList extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnUpdate)
                     .addComponent(btnCreate)
                     .addComponent(btnDelete))
                 .addGap(34, 34, 34))
@@ -116,11 +115,47 @@ public class StudentList extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowOpened
 
     private void btnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateActionPerformed
-        NewStudentForm NewForm = new NewStudentForm(this,true);
+        NewStudentForm NewForm = new NewStudentForm(this,true,0);
         NewForm.setVisible(true);
         
         loadTableStudents();
     }//GEN-LAST:event_btnCreateActionPerformed
+
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        // TODO add your handling code here:
+        int selectedRow = tblStudent.getSelectedRow();
+    
+        if (selectedRow != -1) {
+                int idStudent = (int) tblStudent.getModel().getValueAt(selectedRow, 0);
+
+                int opcion = JOptionPane.showConfirmDialog(this,
+                        "¿Estás seguro que deseas eliminar este alumno?",
+                        "Confirmar eliminación",
+                        JOptionPane.YES_NO_OPTION);
+
+                if (opcion == JOptionPane.YES_OPTION) {
+                    Student student = StudentDAO.getById(idStudent);
+
+                    if (student != null && StudentDAO.delete(student)) {
+                        JOptionPane.showMessageDialog(this,
+                                "Alumno "+ idStudent + " eliminado correctamente.",
+                                "Eliminado",
+                                JOptionPane.INFORMATION_MESSAGE);
+                        loadTableStudents(); // Recargar tabla
+                    } else {
+                        JOptionPane.showMessageDialog(this,
+                                "No se pudo eliminar la actividad.",
+                                "Error",
+                                JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+            } else {
+                JOptionPane.showMessageDialog(this,
+                        "Debes seleccionar una actividad para eliminar.",
+                        "Advertencia",
+                        JOptionPane.WARNING_MESSAGE);
+            }
+    }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void loadTableStudents() {
     List<Student> students = StudentDAO.getAll();
@@ -173,7 +208,6 @@ public class StudentList extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCreate;
     private javax.swing.JButton btnDelete;
-    private javax.swing.JButton btnUpdate;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblStudent;
     // End of variables declaration//GEN-END:variables

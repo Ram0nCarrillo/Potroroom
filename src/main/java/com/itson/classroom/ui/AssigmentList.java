@@ -8,6 +8,7 @@ import com.itson.classroom.entities.Assigment;
 import com.itson.classroom.persistence.AssigmentDAO;
 import com.itson.classroom.ui.NewAssigmentForm;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -59,6 +60,11 @@ public class AssigmentList extends javax.swing.JFrame {
         ));
         tblAssigment.setGridColor(new java.awt.Color(153, 255, 153));
         tblAssigment.setSelectionBackground(new java.awt.Color(153, 255, 153));
+        tblAssigment.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblAssigmentMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblAssigment);
 
         btnCreate.setBackground(new java.awt.Color(153, 255, 102));
@@ -78,7 +84,7 @@ public class AssigmentList extends javax.swing.JFrame {
         });
 
         btnDelete.setBackground(new java.awt.Color(153, 255, 102));
-        btnDelete.setText("Check");
+        btnDelete.setText("Delete");
         btnDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDeleteActionPerformed(evt);
@@ -90,17 +96,18 @@ public class AssigmentList extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 608, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(184, 184, 184)
                         .addComponent(btnDelete)
-                        .addGap(50, 50, 50)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
                         .addComponent(btnEdit)
-                        .addGap(62, 62, 62)
+                        .addGap(43, 43, 43)
                         .addComponent(btnCreate)
-                        .addGap(123, 123, 123)))
+                        .addGap(142, 142, 142)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -126,21 +133,70 @@ public class AssigmentList extends javax.swing.JFrame {
 
     }//GEN-LAST:event_formWindowOpened
 
-    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-        
-    }//GEN-LAST:event_btnDeleteActionPerformed
-
     private void btnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateActionPerformed
-        NewAssigmentForm form = new NewAssigmentForm(this, true);
+        NewAssigmentForm form = new NewAssigmentForm(this, true, 0);
         form.setVisible(true);
         
         loadTableAssigments();
-    }
     }//GEN-LAST:event_btnCreateActionPerformed
 
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
-        
+    int selectedRow = tblAssigment.getSelectedRow();
+    
+    if (selectedRow != -1) {
+        int idAssigment = (int) tblAssigment.getModel().getValueAt(selectedRow, 0);
+        Assigment assigment = AssigmentDAO.getById(idAssigment);
+            if (assigment != null) {
+                NewAssigmentForm form = new NewAssigmentForm(this, true, idAssigment);
+                form.setVisible(true);
+                loadTableAssigments(); // Recargar después de cerrar el form
+            }
+        } else {
+            JOptionPane.showMessageDialog(this,
+                    "Debes seleccionar una actividad para editar.",
+                    "Advertencia",
+                    JOptionPane.WARNING_MESSAGE);
+        }
     }//GEN-LAST:event_btnEditActionPerformed
+
+    private void tblAssigmentMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblAssigmentMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tblAssigmentMouseClicked
+
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        int selectedRow = tblAssigment.getSelectedRow();
+    
+        if (selectedRow != -1) {
+                int idAssigment = (int) tblAssigment.getModel().getValueAt(selectedRow, 0);
+
+                int opcion = JOptionPane.showConfirmDialog(this,
+                        "¿Estás seguro que deseas eliminar esta actividad?",
+                        "Confirmar eliminación",
+                        JOptionPane.YES_NO_OPTION);
+
+                if (opcion == JOptionPane.YES_OPTION) {
+                    Assigment assigment = AssigmentDAO.getById(idAssigment);
+
+                    if (assigment != null && AssigmentDAO.delete(assigment)) {
+                        JOptionPane.showMessageDialog(this,
+                                "Actividad eliminada correctamente.",
+                                "Eliminado",
+                                JOptionPane.INFORMATION_MESSAGE);
+                        loadTableAssigments(); // Recargar tabla
+                    } else {
+                        JOptionPane.showMessageDialog(this,
+                                "No se pudo eliminar la actividad.",
+                                "Error",
+                                JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+            } else {
+                JOptionPane.showMessageDialog(this,
+                        "Debes seleccionar una actividad para eliminar.",
+                        "Advertencia",
+                        JOptionPane.WARNING_MESSAGE);
+            }
+    }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void loadTableAssigments() {
     List<Assigment> assigments = AssigmentDAO.getAll();
@@ -152,9 +208,11 @@ public class AssigmentList extends javax.swing.JFrame {
             a.getTittle(),
             a.getDescription(),
             a.getDue_date(),
-        });
+            });
+        }
     }
-}
+    
+    
     
     /**
      * @param args the command line arguments
@@ -182,6 +240,9 @@ public class AssigmentList extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(AssigmentList.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -198,4 +259,4 @@ public class AssigmentList extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblAssigment;
     // End of variables declaration//GEN-END:variables
-
+}

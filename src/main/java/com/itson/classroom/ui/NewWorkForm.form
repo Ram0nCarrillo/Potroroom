@@ -33,7 +33,7 @@
                   <Component id="txtDate" alignment="0" pref="261" max="32767" attributes="0"/>
                   <Component id="txtName" alignment="0" max="32767" attributes="0"/>
                   <Component id="txtStudent" alignment="0" max="32767" attributes="0"/>
-                  <Component id="txtAssignment" alignment="0" max="32767" attributes="0"/>
+                  <Component id="txtAssigment" alignment="0" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
@@ -62,7 +62,7 @@
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="txtAssignment" min="-2" max="-2" attributes="0"/>
+              <Component id="txtAssigment" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="btnOk" min="-2" max="-2" attributes="0"/>
               <EmptySpace pref="13" max="32767" attributes="0"/>
@@ -103,9 +103,9 @@
         <Property name="text" type="java.lang.String" value="Assignment"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="txtAssignment">
+    <Component class="javax.swing.JTextField" name="txtAssigment">
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtAssignmentActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtAssigmentActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnOk">

@@ -114,10 +114,10 @@ public class WorkList extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowOpened
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-        NewWorkForm classForm = new NewWorkForm(this,true);
+        /*NewWorkForm classForm = new NewWorkForm(this, true);
         classForm.setVisible(true);
         
-        loadTableWork();
+        loadTableWork();*/
     }//GEN-LAST:event_btnAddActionPerformed
 
     

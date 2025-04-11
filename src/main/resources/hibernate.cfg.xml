@@ -16,7 +16,7 @@
         <property name="hibernate.connection.username">siste214_251990</property>
         <property name="hibernate.connection.password">251990ITSON@guaymas</property>
         
-        <mapping class="com.itson.classroom.entities.Assignment"/>
+        <mapping class="com.itson.classroom.entities.Assigment"/>
         <mapping class="com.itson.classroom.entities.Student"/>
         <mapping class="com.itson.classroom.entities.Work"/>
 
