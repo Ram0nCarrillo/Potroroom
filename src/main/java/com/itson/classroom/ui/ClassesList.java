@@ -1,5 +1,8 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ */
 package com.itson.classroom.ui;
-
 
 import com.itson.classroom.entities.Classes;
 import com.itson.classroom.persistence.ClassesDAO;
@@ -9,7 +12,7 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author user
+ * @author zBook
  */
 public class ClassesList extends javax.swing.JFrame {
 
@@ -29,12 +32,12 @@ public class ClassesList extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btnAdd = new javax.swing.JButton();
-        jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblClasses = new javax.swing.JTable();
+        btnAccess = new javax.swing.JButton();
         btnEdit = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
+        btnAdd = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -43,15 +46,6 @@ public class ClassesList extends javax.swing.JFrame {
             }
         });
 
-        btnAdd.setBackground(new java.awt.Color(0, 153, 153));
-        btnAdd.setText("Add");
-        btnAdd.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAddActionPerformed(evt);
-            }
-        });
-
-        tblClasses.setBackground(new java.awt.Color(0, 153, 153));
         tblClasses.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -60,26 +54,17 @@ public class ClassesList extends javax.swing.JFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "Id", "Name", "Student", "Assigment"
+                "Id", "Name", "Student", "Assignment"
             }
         ));
-        tblClasses.setGridColor(new java.awt.Color(153, 255, 153));
-        tblClasses.setSelectionBackground(new java.awt.Color(153, 255, 153));
         jScrollPane1.setViewportView(tblClasses);
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 571, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE)
-        );
+        btnAccess.setText("Access");
+        btnAccess.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAccessActionPerformed(evt);
+            }
+        });
 
         btnEdit.setText("Edit");
         btnEdit.addActionListener(new java.awt.event.ActionListener() {
@@ -95,95 +80,83 @@ public class ClassesList extends javax.swing.JFrame {
             }
         });
 
+        btnAdd.setText("Add");
+        btnAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(18, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(51, 51, 51)
-                .addComponent(btnAdd)
-                .addGap(126, 126, 126)
-                .addComponent(btnEdit)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnDelete)
-                .addGap(103, 103, 103))
+                .addGap(15, 15, 15)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(3, 3, 3)
+                        .addComponent(btnAdd)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnEdit)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnDelete)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnAccess)
+                        .addGap(60, 60, 60))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(34, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                .addGap(14, 14, 14)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAdd)
+                    .addComponent(btnAccess)
                     .addComponent(btnEdit)
-                    .addComponent(btnDelete))
-                .addGap(22, 22, 22))
+                    .addComponent(btnDelete)
+                    .addComponent(btnAdd))
+                .addGap(26, 26, 26))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnEditActionPerformed
+
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-       // Obtener el modelo de la tabla
-    DefaultTableModel model = (DefaultTableModel) tblClasses.getModel();
-    
-    // Crear una nueva fila con datos de ejemplo
-    Object[] newRow = { model.getRowCount() + 1, "New Name", "Student", "Assignment" };
-    
-    // Agregar la nueva fila al modelo
-    model.addRow(newRow);
+
+        NewClassForm classForm = new NewClassForm(this,true);
+        classForm.setVisible(true);
+        
+        loadTableClasses();
     }//GEN-LAST:event_btnAddActionPerformed
 
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnDeleteActionPerformed
+
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-       try {
+        //done 
+        try {
     loadTableClasses();
     tblClasses.removeColumn(tblClasses.getColumnModel().getColumn(0));
 } catch (Exception ex) {
-    ex.printStackTrace();
     JOptionPane.showMessageDialog(this, "Error al cargar los datos: " + ex.getMessage());
 }
+
     }//GEN-LAST:event_formWindowOpened
 
-    private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
-                                               
-    int selectedRow = tblClasses.getSelectedRow();
-    
-    if (selectedRow != -1) {
-        DefaultTableModel model = (DefaultTableModel) tblClasses.getModel();
-        
-        // Modificar valores de la fila seleccionada
-        model.setValueAt("Edited Name", selectedRow, 1); // Editar columna Name
-        model.setValueAt("Edited Student", selectedRow, 2); // Editar columna Student
-        model.setValueAt("Edited Assignment", selectedRow, 3); // Editar columna Assignment
-    } else {
-        JOptionPane.showMessageDialog(this, "Please select a row to edit."); // Mensaje si no hay selección
-    }
-}
+    private void btnAccessActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAccessActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAccessActionPerformed
 
-    }//GEN-LAST:event_btnEditActionPerformed
-
-    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-                                              
-    int selectedRow = tblClasses.getSelectedRow();
-    
-    if (selectedRow != -1) {
-        DefaultTableModel model = (DefaultTableModel) tblClasses.getModel();
-        
-        // Eliminar la fila seleccionada
-        model.removeRow(selectedRow);
-    } else {
-        JOptionPane.showMessageDialog(null, "Please select a row to delete."); // Mensaje si no hay selección
-    }
-
-
-    }//GEN-LAST:event_btnDeleteActionPerformed
-
-    
+    //Load table
     private void loadTableClasses() {
     List<Classes> classes = ClassesDAO.getAll();
     DefaultTableModel tableModel = (DefaultTableModel) tblClasses.getModel();
@@ -196,13 +169,11 @@ public class ClassesList extends javax.swing.JFrame {
             c.getAssigment()
         });
     }
-}
-    
-    
+    }
     /**
      * @param args the command line arguments
      */
-    public void main(String args[]) { // quite el static de aqui, es por mientras
+    public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -228,7 +199,6 @@ public class ClassesList extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
-            @Override
             public void run() {
                 new ClassesList().setVisible(true);
             }
@@ -236,13 +206,11 @@ public class ClassesList extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAccess;
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnEdit;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblClasses;
     // End of variables declaration//GEN-END:variables
 }
-
-

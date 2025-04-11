@@ -51,6 +51,11 @@ public class NewStudentForm extends javax.swing.JDialog {
         jLabel5.setText("Email:");
 
         btnAccept.setText("Aceptar");
+        btnAccept.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAcceptActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -135,6 +140,10 @@ public class NewStudentForm extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnAcceptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAcceptActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAcceptActionPerformed
 
     /**
      * @param args the command line arguments
