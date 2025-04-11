@@ -16,10 +16,6 @@ public class Student {
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
-    private Classes classes;
-    private String assigned_act;
-    private Assigment asigment;
-    private double grade;
     private String email;
 
     public String getEmail() {
@@ -46,35 +42,4 @@ public class Student {
         this.name = name;
     }
 
-    public Classes getClasses() {
-        return classes;
-    }
-
-    public void setClasses(Classes classes) {
-        this.classes = classes;
-    }
-
-    public String getAssigned_act() {
-        return assigned_act;
-    }
-
-    public void setAssigned_act(String assigned_act) {
-        this.assigned_act = assigned_act;
-    }
-
-    public Assigment getAsigment() {
-        return asigment;
-    }
-
-    public void setAsigment(Assigment asigment) {
-        this.asigment = asigment;
-    }
-
-    public double getGrade() {
-        return grade;
-    }
-
-    public void setGrade(double grade) {
-        this.grade = grade;
-    }
     }

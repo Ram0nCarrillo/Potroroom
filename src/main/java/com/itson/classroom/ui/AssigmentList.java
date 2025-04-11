@@ -4,8 +4,8 @@
  */
 package com.itson.classroom.ui;
 
-import com.itson.classroom.entities.Assigment;
-import com.itson.classroom.persistence.AssigmentDAO;
+import com.itson.classroom.entities.Assignment;
+import com.itson.classroom.persistence.AssignmentDAO;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
@@ -45,13 +45,13 @@ public class AssigmentList extends javax.swing.JFrame {
         tblAssigment.setBackground(new java.awt.Color(204, 255, 204));
         tblAssigment.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Id", "Tittle", "Description", "Due Day", "State", "Classes"
+                "Id", "Tittle", "Description", "Due Date"
             }
         ));
         tblAssigment.setGridColor(new java.awt.Color(153, 255, 153));
@@ -95,17 +95,15 @@ public class AssigmentList extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowOpened
 
     private void loadTableAssigments() {
-    List<Assigment> assigments = AssigmentDAO.getAll();
+    List<Assignment> assigments = AssignmentDAO.getAll();
     DefaultTableModel tableModel = (DefaultTableModel) tblAssigment.getModel();
     tableModel.setRowCount(0);
-    for (Assigment a : assigments) {
+    for (Assignment a : assigments) {
         tableModel.addRow(new Object[]{
             a.getId(),
             a.getTittle(),
             a.getDescription(),
-            a.getDay_send(),
-            a.getState(),
-            a.getClasses()
+            a.getDue_date(),
         });
     }
 }

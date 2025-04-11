@@ -49,4 +49,21 @@ public class WorkDAO {
         }
         return resultado;
     }
+    
+     public static boolean save(Work w){
+        boolean resultado = false;
+        try{
+            Session session = HibernateUtil.getSessionFactory().openSession();
+            session.beginTransaction();
+            
+            session.save(w);
+            session.getTransaction().commit();
+            
+            resultado = w.getId() !=0;
+            
+        } catch (Exception ex){
+            System.out.println("Ocurrio un error: " + ex.getMessage());
+        }
+        return resultado;
+    }
 }

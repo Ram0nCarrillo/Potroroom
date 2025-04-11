@@ -4,56 +4,92 @@
  */
 package com.itson.classroom.entities;
 
-import java.util.Date;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 /**
  *
  * @author ramon
  */
 public class Work {
-    private int id;
-    private Date date;
-    private String name;
-    private Student student;
-    private Assigment assigment;
 
+    /**
+     * @return the id
+     */
     public int getId() {
         return id;
     }
 
+    /**
+     * @param id the id to set
+     */
     public void setId(int id) {
         this.id = id;
     }
 
-    public Date getDate() {
+    /**
+     * @return the date
+     */
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    /**
+     * @param date the date to set
+     */
+    public void setDate(String date) {
         this.date = date;
     }
 
-    public String getName() {
-        return name;
+    /**
+     * @return the file_name
+     */
+    public String getFile_name() {
+        return file_name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    /**
+     * @param file_name the file_name to set
+     */
+    public void setFile_name(String file_name) {
+        this.file_name = file_name;
     }
 
-    public Student getStudent() {
-        return student;
+    /**
+     * @return the id_student
+     */
+    public Student getId_student() {
+        return id_student;
     }
 
-    public void setStudent(Student student) {
-        this.student = student;
+    /**
+     * @param id_student the id_student to set
+     */
+    public void setId_student(Student id_student) {
+        this.id_student = id_student;
     }
 
-    public Assigment getAssigment() {
-        return assigment;
+    /**
+     * @return the id_assignment
+     */
+    public Assignment getId_assignment() {
+        return id_assignment;
     }
 
-    public void setAssigment(Assigment assigment) {
-        this.assigment = assigment;
+    /**
+     * @param id_assignment the id_assignment to set
+     */
+    public void setId_assignment(Assignment id_assignment) {
+        this.id_assignment = id_assignment;
     }
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+    private String date;
+    private String file_name;
+    private Student id_student;
+    private Assignment id_assignment;
+
+   
 }

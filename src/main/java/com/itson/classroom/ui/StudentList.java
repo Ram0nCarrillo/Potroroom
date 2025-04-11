@@ -45,13 +45,13 @@ public class StudentList extends javax.swing.JFrame {
         tblStudent.setBackground(new java.awt.Color(255, 153, 153));
         tblStudent.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "Id", "Name", "Classes", "Assigned_act", "Assigment", "Grade", "Email"
+                "Id", "Name", "Email"
             }
         ));
         tblStudent.setGridColor(new java.awt.Color(153, 255, 153));
@@ -103,10 +103,6 @@ public class StudentList extends javax.swing.JFrame {
         tableModel.addRow(new Object[]{
             s.getId(),
             s.getName(),
-            s.getClasses(),
-            s.getAssigned_act(),
-            s.getAsigment(),
-            s.getGrade(),
             s.getEmail()
         });
     }

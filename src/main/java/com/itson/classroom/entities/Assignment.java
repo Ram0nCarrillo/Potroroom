@@ -11,17 +11,17 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class Assigment {
+public class Assignment {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private String tittle;
-    private String state;
+    private String title;
     private String description;
-    private Date due_day;
-    private Classes classes;
-
+    private Date due_date;
+    
+    
+    
     public int getId() {
         return id;
     }
@@ -31,20 +31,14 @@ public class Assigment {
     }
 
     public String getTittle() {
-        return tittle;
+        return title;
     }
 
     public void setTittle(String tittle) {
-        this.tittle = tittle;
+        this.title = tittle;
     }
 
-    public String getState() {
-        return state;
-    }
-
-    public void setState(String state) {
-        this.state = state;
-    }
+    
 
     public String getDescription() {
         return description;
@@ -54,19 +48,12 @@ public class Assigment {
         this.description = description;
     }
 
-    public Date getDay_send() {
-        return due_day;
+    public Date getDue_date() {
+        return due_date;
     }
 
-    public void setDay_send(Date due_day) {
-        this.due_day = due_day;
+    public void setDue_date(Date due_date) {
+        this.due_date = due_date;
     }
 
-    public Classes getClasses() {
-        return classes;
-    }
-
-    public void setClasses(Classes classes) {
-        this.classes = classes;
-    }
 }

@@ -34,6 +34,7 @@ public class WorkList extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblWork = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
+        btnAdd = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -51,16 +52,12 @@ public class WorkList extends javax.swing.JFrame {
                 {null, null, null, null, null}
             },
             new String [] {
-                "Id", "Date", "Name", "Student", "Assigment"
+                "Id", "Date", "Name", "Student", "Assignment"
             }
         ));
         tblWork.setGridColor(new java.awt.Color(153, 255, 153));
         tblWork.setSelectionBackground(new java.awt.Color(153, 255, 153));
         jScrollPane1.setViewportView(tblWork);
-        if (tblWork.getColumnModel().getColumnCount() > 0) {
-            tblWork.getColumnModel().getColumn(3).setHeaderValue("Student");
-            tblWork.getColumnModel().getColumn(4).setHeaderValue("Assigment");
-        }
 
         jButton1.setBackground(new java.awt.Color(255, 204, 51));
         jButton1.setText("Students");
@@ -70,18 +67,25 @@ public class WorkList extends javax.swing.JFrame {
             }
         });
 
+        btnAdd.setText("Add");
+        btnAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 550, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(253, 253, 253)
-                        .addComponent(jButton1)))
+                        .addComponent(btnAdd)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton1))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 550, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(94, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -89,9 +93,11 @@ public class WorkList extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addGap(21, 21, 21))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(btnAdd))
+                .addContainerGap(33, Short.MAX_VALUE))
         );
 
         pack();
@@ -107,6 +113,15 @@ public class WorkList extends javax.swing.JFrame {
         tblWork.removeColumn(tblWork.getColumnModel().getColumn(0));
     }//GEN-LAST:event_formWindowOpened
 
+    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
+        // TODO add your handling code here:
+        
+        NewWorkForm classForm = new NewWorkForm(this,true);
+        classForm.setVisible(true);
+        
+        loadTableWork();
+    }//GEN-LAST:event_btnAddActionPerformed
+
     
     private void loadTableWork() {
     List<Work> work = WorkDAO.getAll();
@@ -116,9 +131,9 @@ public class WorkList extends javax.swing.JFrame {
         tableModel.addRow(new Object[]{
             w.getId(),
             w.getDate(),
-            w.getName(),
-            w.getStudent(),
-            w.getAssigment()
+            w.getFile_name(),
+            w.getId_student(),
+            w.getId_assignment()
         });
     }
 }
@@ -159,6 +174,7 @@ public class WorkList extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAdd;
     private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblWork;

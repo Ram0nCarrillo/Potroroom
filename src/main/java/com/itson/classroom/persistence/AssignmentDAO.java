@@ -4,7 +4,7 @@
  */
 package com.itson.classroom.persistence;
 
-import com.itson.classroom.entities.Classes;
+import com.itson.classroom.entities.Assignment;
 import com.itson.classroom.utils.HibernateUtil;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,34 +15,34 @@ import org.hibernate.Session;
  *
  * @author ramon
  */
-public class ClassesDAO {
+public class AssignmentDAO {
     
-    public static List<Classes> getAll(){
-        List<Classes> classes = new ArrayList<>();
+    public static List<Assignment> getAll(){
+        List<Assignment> assigments = new ArrayList<>();
         try {
             Session session = HibernateUtil.getSessionFactory().openSession();
             
-            CriteriaQuery<Classes> criteriaQuery = 
-                    session.getCriteriaBuilder().createQuery(Classes.class);
-            criteriaQuery.from(Classes.class);
+            CriteriaQuery<Assignment> criteriaQuery = 
+                    session.getCriteriaBuilder().createQuery(Assignment.class);
+            criteriaQuery.from(Assignment.class);
             
-            classes = session.createQuery(criteriaQuery).getResultList();
+            assigments = session.createQuery(criteriaQuery).getResultList();
         } catch(Exception ex){
             System.out.println("Ocurrio un error: " + ex.getMessage());
         }
-        return classes;
+        return assigments;
     }
     
-    public static boolean save(Classes c){
+    public static boolean save(Assignment a){
         boolean resultado = false;
         try{
             Session session = HibernateUtil.getSessionFactory().openSession();
             session.beginTransaction();
             
-            session.save(c);
+            session.save(a);
             session.getTransaction().commit();
             
-            resultado = c.getId() !=0;
+            resultado = a.getId() !=0;
             
         } catch (Exception ex){
             System.out.println("Ocurrio un error: " + ex.getMessage());
@@ -50,16 +50,16 @@ public class ClassesDAO {
         return resultado;
     }
     
-    public static boolean update(Classes c){
+    public static boolean update(Assignment a){
         boolean resultado = false;
         try{
             Session session = HibernateUtil.getSessionFactory().openSession();
             session.beginTransaction();
             
-            session.update(c);
+            session.update(a);
             session.getTransaction().commit();
             
-            resultado = c.getId() !=0;
+            resultado = a.getId() !=0;
             
         } catch (Exception ex){
             System.out.println("Ocurrio un error: " + ex.getMessage());
@@ -67,16 +67,16 @@ public class ClassesDAO {
         return resultado;
     }
     
-    public static boolean delete(Classes c){
+    public static boolean delete(Assignment a){
         boolean resultado = false;
         try{
             Session session = HibernateUtil.getSessionFactory().openSession();
             session.beginTransaction();
             
-            session.delete(c);
+            session.delete(a);
             session.getTransaction().commit();
             
-            resultado = c.getId() !=0;
+            resultado = a.getId() !=0;
             
         } catch (Exception ex){
             System.out.println("Ocurrio un error: " + ex.getMessage());
