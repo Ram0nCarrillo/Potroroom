@@ -6,8 +6,11 @@ package com.itson.classroom.ui;
 
 import com.itson.classroom.entities.Student;
 import com.itson.classroom.entities.Work;
+import com.itson.classroom.persistence.AssigmentDAO;
+import com.itson.classroom.persistence.StudentDAO;
 import com.itson.classroom.persistence.WorkDAO;
 import javax.swing.JOptionPane;
+import net.bytebuddy.implementation.bind.annotation.AllArguments.Assignment;
 
 /**
  *
@@ -35,7 +38,7 @@ public class NewWorkForm extends javax.swing.JDialog {
         jLabel1 = new javax.swing.JLabel();
         txtDate = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        txtName = new javax.swing.JTextField();
+        txtFileName = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         txtStudent = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
@@ -89,7 +92,7 @@ public class NewWorkForm extends javax.swing.JDialog {
                     .addComponent(jLabel3)
                     .addComponent(jLabel4)
                     .addComponent(txtDate, javax.swing.GroupLayout.DEFAULT_SIZE, 261, Short.MAX_VALUE)
-                    .addComponent(txtName)
+                    .addComponent(txtFileName)
                     .addComponent(txtStudent)
                     .addComponent(txtAssigment))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -108,7 +111,7 @@ public class NewWorkForm extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtFileName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -125,40 +128,44 @@ public class NewWorkForm extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtAssigmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAssigmentActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtAssigmentActionPerformed
-
-    private void txtStudentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtStudentActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtStudentActionPerformed
-
     private void txtDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDateActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtDateActionPerformed
 
     private void btnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOkActionPerformed
-        // TODO add your handling code here:
-           // TODO add your handling code here:
         try{
-        String name = txtName.getText();
-        String date = txtDate.getText();
-        String student = txtStudent.getText();
-        String assignment = txtAssigment.getText();
-        
-        Work w = new Work();
-        
-       
-        if(WorkDAO.save(w)){
-            JOptionPane.showMessageDialog(this, "El registro de la clase se guardo correctamente", "Registro guardado", JOptionPane.INFORMATION_MESSAGE);
-        }else{
-            JOptionPane.showMessageDialog(this, "El registro de la clase no se guardo correctamente", "Registro cancelado", JOptionPane.ERROR_MESSAGE);
-        }
-        
+            String fileName = txtFileName.getText();
+            String date = txtDate.getText();
+            int students = Integer.parseInt(txtStudent.getText());
+            int assigments = Integer.parseInt(txtAssigment.getText());
+            
+            Student student = Student.getById(students);
+            Assigment assigment = Assigment.getById(assigments);
+
+            Work w = new Work();
+            w.setDate(date);
+            w.setFile_name(fileName);
+            w.setId_student(student);
+            w.setId_assigment(assigment);
+            
+            if(WorkDAO.save(w)){
+                JOptionPane.showMessageDialog(this, "El registro de la clase se guardo correctamente", "Registro guardado", JOptionPane.INFORMATION_MESSAGE);
+            }else{
+                JOptionPane.showMessageDialog(this, "El registro de la clase no se guardo correctamente", "Registro cancelado", JOptionPane.ERROR_MESSAGE);
+            }
+
         }catch (Exception ex) {
-            System.err.println("Ocurrio un error " + ex.getMessage());
-        }
+                System.err.println("Ocurrio un error " + ex.getMessage());
+            }
     }//GEN-LAST:event_btnOkActionPerformed
+
+    private void txtStudentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtStudentActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtStudentActionPerformed
+
+    private void txtAssigmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAssigmentActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtAssigmentActionPerformed
 
     /**
      * @param args the command line arguments
@@ -210,7 +217,7 @@ public class NewWorkForm extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JTextField txtAssigment;
     private javax.swing.JTextField txtDate;
-    private javax.swing.JTextField txtName;
+    private javax.swing.JTextField txtFileName;
     private javax.swing.JTextField txtStudent;
     // End of variables declaration//GEN-END:variables
 }

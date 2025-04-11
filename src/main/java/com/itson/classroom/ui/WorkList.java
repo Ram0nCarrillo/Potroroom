@@ -7,6 +7,7 @@ package com.itson.classroom.ui;
 import com.itson.classroom.entities.Work;
 import com.itson.classroom.persistence.WorkDAO;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -33,7 +34,8 @@ public class WorkList extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         tblWork = new javax.swing.JTable();
-        btnAdd = new javax.swing.JButton();
+        btnCreate = new javax.swing.JButton();
+        btnDelete = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -58,10 +60,17 @@ public class WorkList extends javax.swing.JFrame {
         tblWork.setSelectionBackground(new java.awt.Color(153, 255, 153));
         jScrollPane1.setViewportView(tblWork);
 
-        btnAdd.setText("Add");
-        btnAdd.addActionListener(new java.awt.event.ActionListener() {
+        btnCreate.setText("Create");
+        btnCreate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAddActionPerformed(evt);
+                btnCreateActionPerformed(evt);
+            }
+        });
+
+        btnDelete.setText("Delete");
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
             }
         });
 
@@ -71,10 +80,16 @@ public class WorkList extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnAdd, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 550, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(94, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 550, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnDelete)
+                        .addGap(48, 48, 48)
+                        .addComponent(btnCreate)
+                        .addGap(176, 176, 176))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -82,8 +97,10 @@ public class WorkList extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btnAdd)
-                .addContainerGap(33, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnCreate)
+                    .addComponent(btnDelete))
+                .addContainerGap(47, Short.MAX_VALUE))
         );
 
         pack();
@@ -95,28 +112,63 @@ public class WorkList extends javax.swing.JFrame {
         tblWork.removeColumn(tblWork.getColumnModel().getColumn(0));
     }//GEN-LAST:event_formWindowOpened
 
-    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-        /*NewWorkForm classForm = new NewWorkForm(this, true);
-        classForm.setVisible(true);
+    private void btnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateActionPerformed
+        NewWorkForm form = new NewWorkForm(this, true, 0);
+        form.setVisible(true);
         
-        loadTableWork();*/
-    }//GEN-LAST:event_btnAddActionPerformed
+        loadTableWork();
+    }//GEN-LAST:event_btnCreateActionPerformed
+
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        int selectedRow = tblWork.getSelectedRow();
+    
+        if (selectedRow != -1) {
+            int idAssigment = (int) tblWork.getModel().getValueAt(selectedRow, 0);
+
+            int opcion = JOptionPane.showConfirmDialog(this,
+                "¿Estás seguro que deseas eliminar esta actividad?",
+                "Confirmar eliminación",
+                JOptionPane.YES_NO_OPTION);
+
+            if (opcion == JOptionPane.YES_OPTION) {
+                Work works = WorkDAO.getById(idAssigment);
+
+                if (works != null && WorkDAO.delete(works)) {
+                    JOptionPane.showMessageDialog(this,
+                    "Actividad eliminada correctamente.",
+                    "Eliminado",
+                        JOptionPane.INFORMATION_MESSAGE);
+                    loadTableWork();
+                } else {
+                    JOptionPane.showMessageDialog(this,
+                        "No se pudo eliminar la actividad.",
+                        "Error",
+                        JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+            } else {
+                JOptionPane.showMessageDialog(this,
+                    "Debes seleccionar una actividad para eliminar.",
+                    "Advertencia",
+                    JOptionPane.WARNING_MESSAGE);
+            }
+    }//GEN-LAST:event_btnDeleteActionPerformed
 
     
     private void loadTableWork() {
-    List<Work> work = WorkDAO.getAll();
-    DefaultTableModel tableModel = (DefaultTableModel) tblWork.getModel();
-    tableModel.setRowCount(0);
-    for (Work w : work) {
-        tableModel.addRow(new Object[]{
-            w.getId(),
-            w.getDate(),
-            w.getFile_name(),
-            w.getId_student() != null ? w.getId_student().getName() : "Sin estudiante",
-            w.getId_assignment() != null ? w.getId_assignment().getTittle() : "Sin asignación"
-        });
+        List<Work> work = WorkDAO.getAll();
+        DefaultTableModel tableModel = (DefaultTableModel) tblWork.getModel();
+        tableModel.setRowCount(0);
+        for (Work w : work) {
+            tableModel.addRow(new Object[]{
+                w.getId(),
+                w.getDate(),
+                w.getFile_name(),
+                w.getId_student() != null ? w.getId_student().getName() : "Sin estudiante",
+                w.getId_assignment() != null ? w.getId_assignment().getTittle() : "Sin asignación"
+            });
+        }
     }
-}
     
     /**
      * @param args the command line arguments
@@ -154,7 +206,8 @@ public class WorkList extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAdd;
+    private javax.swing.JButton btnCreate;
+    private javax.swing.JButton btnDelete;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblWork;
     // End of variables declaration//GEN-END:variables

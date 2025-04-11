@@ -33,6 +33,18 @@ public class WorkDAO {
         return works;
     }
     
+    public static Work getById(int id) {
+        Work works = null;
+        try {
+            Session session = HibernateUtil.getSessionFactory().openSession();
+            works = session.get(Work.class, id);
+            session.close();
+        } catch (Exception ex) {
+            System.out.println("Error al obtener el Assigment: " + ex.getMessage());
+        }
+        return works;
+    }
+    
     public static boolean delete(Work w){
         boolean resultado = false;
         try{
