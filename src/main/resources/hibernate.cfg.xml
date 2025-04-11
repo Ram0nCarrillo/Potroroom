@@ -13,9 +13,11 @@
         <property name="hibernate.connection.url">jdbc:mysql://72.29.120.28/siste214_251990?useSSL=false</property>
         <property name="hibernate.connection.username">siste214_251990</property>
         <property name="hibernate.connection.password">251990ITSON@guaymas</property>
-        <mapping class="mx.itson.potroroom.entities.Classes"/>
-        <mapping class="mx.itson.potroroom.entities.Assigment"/>
-        <mapping class="mx.itson.potroroom.entities.Student"/>
+        <mapping class="com.itson.classroom.entities.Classes"/>
+        <mapping class="com.itson.classroom.entities.Assigment"/>
+        <mapping class="com.itson.classroom.entities.Student"/>
+        <mapping class="com.itson.classroom.entities.Work"/>
+
     </session-factory>
 </hibernate-configuration>
 

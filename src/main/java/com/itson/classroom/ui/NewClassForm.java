@@ -4,6 +4,11 @@
  */
 package com.itson.classroom.ui;
 
+import com.itson.classroom.entities.Assigment;
+import com.itson.classroom.entities.Classes;
+import com.itson.classroom.persistence.ClassesDAO;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author zBook
@@ -29,10 +34,8 @@ public class NewClassForm extends javax.swing.JDialog {
 
         txtName = new javax.swing.JTextField();
         txtStudent = new javax.swing.JTextField();
-        txtAssignment = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
         btnAccept = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -49,19 +52,16 @@ public class NewClassForm extends javax.swing.JDialog {
             }
         });
 
-        txtAssignment.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtAssignmentActionPerformed(evt);
-            }
-        });
-
         jLabel1.setText("Name");
 
         jLabel2.setText("Student");
 
-        jLabel3.setText("Assignment");
-
         btnAccept.setText("OK");
+        btnAccept.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAcceptActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -75,10 +75,8 @@ public class NewClassForm extends javax.swing.JDialog {
                 .addGap(16, 16, 16)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(txtAssignment, javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(txtStudent, javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(txtName, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel3)
                     .addComponent(jLabel2)
                     .addComponent(jLabel1))
                 .addContainerGap(110, Short.MAX_VALUE))
@@ -94,11 +92,7 @@ public class NewClassForm extends javax.swing.JDialog {
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtStudent, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtAssignment, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(38, 38, 38)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 119, Short.MAX_VALUE)
                 .addComponent(btnAccept)
                 .addContainerGap())
         );
@@ -114,9 +108,27 @@ public class NewClassForm extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtStudentActionPerformed
 
-    private void txtAssignmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAssignmentActionPerformed
+    private void btnAcceptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAcceptActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtAssignmentActionPerformed
+        try{
+        String name = txtName.getText();
+        String student = txtStudent.getText();
+        //String assignment = txtStudent.getText();
+        
+        Classes c = new Classes();
+        c.setName(name);
+        c.setStudent(student);
+       
+        if(ClassesDAO.save(c)){
+            JOptionPane.showMessageDialog(this, "El registro de la clase se guardo correctamente", "Registro guardado", JOptionPane.INFORMATION_MESSAGE);
+        }else{
+            JOptionPane.showMessageDialog(this, "El registro de la clase no se guardo correctamente", "Registro cancelado", JOptionPane.ERROR_MESSAGE);
+        }
+        
+        }catch (Exception ex) {
+            System.err.println("Ocurrio un error " + ex.getMessage());
+        }
+    }//GEN-LAST:event_btnAcceptActionPerformed
 
     /**
      * @param args the command line arguments
@@ -164,8 +176,6 @@ public class NewClassForm extends javax.swing.JDialog {
     private javax.swing.JButton btnAccept;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JTextField txtAssignment;
     private javax.swing.JTextField txtName;
     private javax.swing.JTextField txtStudent;
     // End of variables declaration//GEN-END:variables
