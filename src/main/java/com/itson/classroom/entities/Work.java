@@ -4,14 +4,19 @@
  */
 package com.itson.classroom.entities;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 
 /**
  *
  * @author ramon
  */
+@Entity
 public class Work {
 
     /**
@@ -88,7 +93,11 @@ public class Work {
     private int id;
     private String date;
     private String file_name;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="id_student")
     private Student id_student;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="id_assignment")
     private Assignment id_assignment;
 
    

@@ -132,8 +132,8 @@ public class WorkList extends javax.swing.JFrame {
             w.getId(),
             w.getDate(),
             w.getFile_name(),
-            w.getId_student(),
-            w.getId_assignment()
+            w.getId_student() != null ? w.getId_student().getName() : "Sin estudiante",
+            w.getId_assignment() != null ? w.getId_assignment().getTittle() : "Sin asignación"
         });
     }
 }
